@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TheDabber404 - Scratch Projects</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Base styles and CSS reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #7e57c2;
+            --primary-light: #b085f5;
+            --primary-dark: #4d2c91;
+            --secondary: #26a69a;
+            --text-light: #f5f5f5;
+            --text-dark: #333333;
+            --bg-light: #f8f9fa;
+            --bg-dark: #1a1a2e;
+            --card-bg-light: #ffffff;
+            --card-bg-dark: #16213e;
+            --accent: #ff5722;
+            --transition: all 0.3s ease;
+            --shadow-light: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --shadow-dark: 0 5px 15px rgba(0, 0, 0, 0.3);
+            --card-radius: 16px;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            transition: var(--transition);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        body.dark-mode {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+        }
+
+        /* Header styles */
+        header {
+            padding: 2rem 1rem;
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-light);
+        }
+
+        body.dark-mode header {
+            box-shadow: var(--shadow-dark);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .profile-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .profile-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: var(--transition);
+        }
+
+        .profile-img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Theme toggle */
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: rotate(15deg);
+        }
+
+        /* Main content */
+        main {
+            flex: 1;
+            padding: 2rem 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .intro-text {
+            text-align: center;
+            margin-bottom: 3rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .intro-text p {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Projects grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .project-card {
+            background-color: var(--card-bg-light);
+            border-radius: var(--card-radius);
+            overflow: hidden;
+            transition: var(--transition);
+            box-shadow: var(--shadow-light);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            position: relative;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        body.dark-mode .project-card {
+            background-color: var(--card-bg-dark);
+            box-shadow: var(--shadow-dark);
+        }
+
+        .project-card:nth-child(2n) {
+            animation-delay: 1s;
+        }
+
+        .project-card:nth-child(3n) {
+            animation-delay: 2s;
+        }
+
+        .project-card:nth-child(4n) {
+            animation-delay: 3s;
+        }
+
+        .project-card:nth-child(5n) {
+            animation-delay: 4s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        body.dark-mode .project-card:hover {
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .project-image {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+            background: linear-gradient(45deg, #f1f1f1, #e1e1e1);
+        }
+
+        body.dark-mode .project-image {
+            background: linear-gradient(45deg, #2a2a40, #252536);
+        }
+
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+            opacity: 0;
+        }
+
+        .project-image img.loaded {
+            opacity: 1;
+        }
+
+        .project-card:hover .project-image img {
+            transform: scale(1.05);
+        }
+
+        .project-content {
+            padding: 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-title {
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        body.dark-mode .project-title {
+            color: var(--primary-light);
+        }
+
+        .project-description {
+            margin-bottom: 1rem;
+            flex: 1;
+        }
+
+        .project-link {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.6rem 1.2rem;
+            background-color: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            transition: var(--transition);
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .project-link:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .copyright {
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .projects-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 1.5rem;
+            }
+            
+            .theme-toggle {
+                top: 10px;
+                right: 10px;
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .tagline {
+                font-size: 1rem;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .profile-img {
+                width: 100px;
+                height: 100px;
+            }
+        }
+
+        /* Additional decorative elements */
+        .decoration {
+            position: absolute;
+            z-index: 1;
+        }
+
+        .circle-1 {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            top: -50px;
+            left: -50px;
+        }
+
+        .circle-2 {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            bottom: -30px;
+            right: 50px;
+        }
+
+        /* Project modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            overflow: auto;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal.show {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background-color: var(--card-bg-light);
+            border-radius: var(--card-radius);
+            width: 90%;
+            max-width: 900px;
+            max-height: 90vh;
+            overflow: auto;
+            position: relative;
+            animation: modalFadeIn 0.3s ease;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        body.dark-mode .modal-content {
+            background-color: var(--card-bg-dark);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 5px;
+            right: 15px;
+            font-size: 2rem;
+            color: var(--text-dark);
+            background: none;
+            border: none;
+            cursor: pointer;
+            z-index: 10;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(255, 255, 255, 0.8);
+            transition: var(--transition);
+        }
+
+        .close-modal:hover {
+            background-color: rgba(255, 255, 255, 1);
+            transform: scale(1.1);
+        }
+
+        body.dark-mode .close-modal {
+            color: var(--text-light);
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        body.dark-mode .close-modal:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .modal-iframe-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+        }
+
+        .modal-iframe-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Additional utility classes */
+        .fade-in {
+            animation: fadeIn 1s ease forwards;
+        }
+
+        .delay-1 {
+            animation-delay: 0.2s;
+        }
+
+        .delay-2 {
+            animation-delay: 0.4s;
+        }
+
+        .delay-3 {
+            animation-delay: 0.6s;
+        }
+
+        .delay-4 {
+            animation-delay: 0.8s;
+        }
+
+        .delay-5 {
+            animation-delay: 1.0s;
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="decoration circle-1"></div>
+        <div class="decoration circle-2"></div>
+        
+        <button class="theme-toggle" aria-label="Toggle dark mode">
+            <i class="fas fa-moon"></i>
+        </button>
+
+        <div class="header-content">
+            <div class="profile-container">
+                <a href="https://freeimage.host/" target="_blank">
+                    <img src="https://iili.io/KaHnVmF.png" alt="TheDabber404 Profile Picture" class="profile-img">
+                </a>
+                <h1>TheDabber404</h1>
+                <p class="tagline">Creative Scratch Developer & Game Designer</p>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="intro-text">
+            <h2>TheDabber404 Amazing Projects</h2>
+            <p>These are all of TheDabber404's amazing projects. Look and play all of the projects.</p>
+        </section>
+
+        <section class="projects-grid">
+            <!-- Project 1 -->
+            <article class="project-card fade-in delay-1">
+                <div class="project-image">
+                    <img src="https://cdn2.scratch.mit.edu/get_image/project/1206214462_282x210.png" alt="Vivaldi 4 Seasons Project" data-src="https://cdn2.scratch.mit.edu/get_image/project/1206214462_282x210.png">
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">Vivaldi 4 Seasons</h3>
+                    <p class="project-description">A scratch project where you can listen to all of the four seasons randomly. All of the music I am using is not copyrighted and is able to be used from my scratch project in resources. See the description and notes for more details!</p>
+                    <a href="#" class="project-link" data-project-id="1206214462">View Project</a>
+                </div>
+            </article>
+
+            <!-- Project 2 -->
+            <article class="project-card fade-in delay-2">
+                <div class="project-image">
+                    <img src="https://cdn2.scratch.mit.edu/get_image/project/757806932_282x210.png" alt="Lebron James Basketball Project" data-src="https://cdn2.scratch.mit.edu/get_image/project/757806932_282x210.png">
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">Lebron James Basketball</h3>
+                    <p class="project-description">A basketball game where you shoot inspired by Lebron James. You have to press the space bar to shoot the ball and there is no scoring system. This game is not mobile and tablet supported. This was one of my first </p>
+                    <a href="#" class="project-link" data-project-id="757806932">View Project</a>
+                </div>
+            </article>
+
+            <!-- Project 3 -->
+            <article class="project-card fade-in delay-3">
+                <div class="project-image">
+                    <img src="https://cdn2.scratch.mit.edu/get_image/project/1046966240_282x210.png" alt="Platformer Game Project" data-src="https://cdn2.scratch.mit.edu/get_image/project/1046966240_282x210.png">
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">Platformer Game</h3>
+                    <p class="project-description">A platformer game created in scratch using Griffpatch's tutorial. You are not able to use arrow keys. Only WASD and Space work. This project is not mobile or tablet supported. All of the platform's and obstacles were made by TheDabber404, while the code was from a Griffpatch tutorial.</p>
+                    <a href="#" class="project-link" data-project-id="1046966240">View Project</a>
+                </div>
+            </article>
+
+            <!-- Project 4 - Drawing Simulator -->
+            <article class="project-card fade-in delay-4">
+                <div class="project-image">
+                    <img src="https://cdn2.scratch.mit.edu/get_image/project/880741853_282x210.png" alt="Drawing Simulator Project" data-src="https://cdn2.scratch.mit.edu/get_image/project/880741853_282x210.png">
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">Drawing Simulator</h3>
+                    <p class="project-description">A Simulator where you can draw different colors and sizes. This is made using the pen tool in scratch and was one of my first projects I ever made on scratch. I have upgraded the project over the years to be better so that is why it is a better project than Lebron James Basketball.</p>
+                    <a href="#" class="project-link" data-project-id="880741853">View Project</a>
+                </div>
+            </article>
+
+            <!-- Project 5 - Placeholder for future project -->
+            <article class="project-card fade-in delay-5">
+                <div class="project-image">
+                    <img src="https://cdn2.scratch.mit.edu/get_image/project/609170132_282x210.png" alt="Coming Soon Project" data-src="https://cdn2.scratch.mit.edu/get_image/project/609170132_282x210.png">
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">Mystery Project</h3>
+                    <p class="project-description">A new and amazing project is being made right now. TheDabber404 is working hard on making more projects!</p>
+                    <a href="#" class="project-link">Coming Soon</a>
+                </div>
+            </article>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p class="copyright">© 2025 TheDabber404 Scratch Project Page</p>
+        </div>
+    </footer>
+
+    <!-- Project Modal -->
+    <div class="modal" id="projectModal">
+        <div class="modal-content">
+            <button class="close-modal" aria-label="Close modal">&times;</button>
+            <div class="modal-iframe-container">
+                <iframe id="projectFrame" src="" allowtransparency="true" frameborder="0" scrolling="no" allowfullscreen></iframe>
+            </div>
+            <div class="modal-body">
+                <h3 id="modalTitle">Project Title</h3>
+                <div id="modalDescription">
+                    <p>Project description will appear here.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Improved image loading to prevent flickering
+            const loadImages = () => {
+                const images = document.querySelectorAll('.project-image img');
+                
+                images.forEach(img => {
+                    // Check if image is already loaded
+                    if (img.complete && img.naturalHeight !== 0) {
+                        img.classList.add('loaded');
+                    } else {
+                        img.addEventListener('load', function() {
+                            this.classList.add('loaded');
+                        });
+                        
+                        // If there's an error loading the image, show a placeholder
+                        img.addEventListener('error', function() {
+                            this.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjgyIiBoZWlnaHQ9IjIxMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSI gaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZTVlNWU1Ii8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iMTQiIGZpbGw9IiM4ODg4ODgiIGR5PSIuM2VtIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5Qcm9qZWN0IEltYWdlPC90ZXh0Pjwvc3ZnPg==';
+                            this.classList.add('loaded');
+                        });
+                    }
+                });
+            };
+
+            // Theme toggle functionality
+            const themeToggle = document.querySelector('.theme-toggle');
+            const body = document.body;
+            const icon = themeToggle.querySelector('i');
+            
+            // Check for saved theme preference
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                body.classList.add('dark-mode');
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            }
+            
+            themeToggle.addEventListener('click', function() {
+                body.classList.toggle('dark-mode');
+                
+                if (body.classList.contains('dark-mode')) {
+                    icon.classList.remove('fa-moon');
+                    icon.classList.add('fa-sun');
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    icon.classList.remove('fa-sun');
+                    icon.classList.add('fa-moon');
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+            
+            // Project modal functionality
+            const projectLinks = document.querySelectorAll('.project-link');
+            const modal = document.getElementById('projectModal');
+            const closeModalBtn = document.querySelector('.close-modal');
+            const projectFrame = document.getElementById('projectFrame');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalDescription = document.getElementById('modalDescription');
+            
+            // Project data
+            const projects = {
+                '1206214462': {
+                    title: 'Vivaldi 4 Seasons',
+                    description: `<p>What is special about this Scratch project is that all of the songs that are played are in a random order and when the song is done it will play a different song but it cannot be the song that was just played until the project is restarted.</p>
+                    <p>I worked very hard to make the system for this project. I hope you enjoy the music playing in a random order. And also there is a secret area that you can access in my project good luck trying to find it, but you need a PC or laptop, you can't access it using a phone.</p>
+                    <p>-TheDabber404</p>
+                    <h4>Notes and Credits:</h4>
+                    <p>To get a new random song press the green flag again! I will make an update soon for making the song pause! Check out my other shared projects!</p>
+                    <p>In the corner of the project there is a variable showing what song is currently playing so if it says winter that means Vivaldi winter is playing and etc.</p>
+                    <p>I am trying to work on some new features that can make my project better such as easter egg items and etc...</p>
+                    <p>-TheDabber404</p>`
+                },
+                '757806932': {
+                    title: 'Lebron James Basketball',
+                    description: '<p>A basketball game where you shoot inspired by Lebron James. You have to press the space bar to shoot the ball and there is no scoring system. This game is not mobile and tablet supported. This was one of my first</p>'
+                },
+                '1046966240': {
+                    title: 'Platformer Game',
+                    description: '<p>A platformer game created in scratch using Griffpatch\'s tutorial. You are not able to use arrow keys. Only WASD and Space work. This project is not mobile or tablet supported. All of the platform\'s and obstacles were made by TheDabber404, while the code was from a Griffpatch tutorial.</p>'
+                },
+                '880741853': {
+                    title: 'Drawing Simulator',
+                    description: '<p>A creative drawing simulator where you can express your artistic skills. This project offers various tools and colors to create your masterpiece. Perfect for unleashing your creativity!</p>'
+                }
+            };
+            
+            // Open modal when project is clicked
+            projectLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const projectId = this.getAttribute('data-project-id');
+                    
+                    if (projectId && projects[projectId]) {
+                        // Set iframe source
+                        if (projectId === '1206214462') {
+                            // Use the specific embed code for Vivaldi 4 Seasons
+                            projectFrame.src = 'https://turbowarp.org/1206214462/embed';
+                        } else if (projectId === '880741853') {
+                            // Use the specific embed code for Drawing Simulator
+                            projectFrame.src = 'https://turbowarp.org/880741853/embed';
+                        } else {
+                            projectFrame.src = `https://scratch.mit.edu/projects/${projectId}/embed`;
+                        }
+                        
+                        // Set modal content
+                        modalTitle.textContent = projects[projectId].title;
+                        modalDescription.innerHTML = projects[projectId].description;
+                        
+                        // Show modal
+                        modal.classList.add('show');
+                        document.body.style.overflow = 'hidden';
+                    }
+                });
+            });
+            
+            // Close modal
+            closeModalBtn.addEventListener('click', function() {
+                modal.classList.remove('show');
+                document.body.style.overflow = 'auto';
+                
+                // Reset iframe source to stop any playing media
+                projectFrame.src = '';
+            });
+            
+            // Close modal when clicking outside content
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    modal.classList.remove('show');
+                    document.body.style.overflow = 'auto';
+                    projectFrame.src = '';
+                }
+            });
+            
+            // Close modal with Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && modal.classList.contains('show')) {
+                    modal.classList.remove('show');
+                    document.body.style.overflow = 'auto';
+                    projectFrame.src = '';
+                }
+            });
+            
+            // Add subtle animation to project cards on scroll
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animationPlayState = 'running';
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+            
+            document.querySelectorAll('.project-card').forEach(card => {
+                card.style.animationPlayState = 'paused';
+                observer.observe(card);
+            });
+
+            // Load images after everything else is ready
+            setTimeout(loadImages, 100);
+        });
+    </script>
+</body>
+</html>
